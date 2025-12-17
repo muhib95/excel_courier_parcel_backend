@@ -5,6 +5,7 @@ const cors = require("cors");
 const { Server } = require("socket.io");
 
 const authRoutes = require("./routes/auth");
+const parcelRoutes = require("./routes/parcel");
 const authMiddleware = require("./middleware/auth");
 
 const app = express();
@@ -39,5 +40,6 @@ app.get("/", authMiddleware, (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/parcels", parcelRoutes);
 
 module.exports = { app, server }; // Export the app instance
