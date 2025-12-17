@@ -34,6 +34,36 @@ const register = async (req, res) => {
     res.status(500).json({ success: false, error: err.message });
   }
 };
+
+const login = async (req, res) => {
+  try {
+    const { phone, password } = req.body;
+
+    const user = await User.findOne({ phone });
+    if (!user)
+      return res.status(400).json({ message: "Invalid phone or password" });
+
+    const match = await bcrypt.compare(password, user.password);
+    if (!match)
+      return res.status(400).json({ message: "Invalid phone or password" });
+
+    const token = jwt.sign(
+      { id: user._id, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "1d" }
+    );
+
+    res.json({
+      success: true,
+      message: "User login successfully",
+      user: { name: user?.name, phone: user?.phone, role: user?.role },
+      token,
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
 module.exports = {
   register,
+  login,
 };

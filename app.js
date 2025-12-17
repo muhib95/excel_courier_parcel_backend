@@ -5,6 +5,7 @@ const cors = require("cors");
 const { Server } = require("socket.io");
 
 const authRoutes = require("./routes/auth");
+const authMiddleware = require("./middleware/auth");
 
 const app = express();
 
@@ -33,7 +34,7 @@ io.on("connection", (socket) => {
 // ✅ Make io available in routes
 app.set("io", io);
 // Routes
-app.get("/", (req, res) => {
+app.get("/", authMiddleware, (req, res) => {
   res.send("Server is running");
 });
 
