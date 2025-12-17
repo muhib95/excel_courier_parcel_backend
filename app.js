@@ -4,6 +4,8 @@ const http = require("http");
 const cors = require("cors");
 const { Server } = require("socket.io");
 
+const authRoutes = require("./routes/auth");
+
 const app = express();
 
 // Middleware
@@ -34,5 +36,7 @@ app.set("io", io);
 app.get("/", (req, res) => {
   res.send("Server is running");
 });
+
+app.use("/api/auth", authRoutes);
 
 module.exports = { app, server }; // Export the app instance
