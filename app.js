@@ -7,6 +7,7 @@ const { Server } = require("socket.io");
 const authRoutes = require("./routes/auth");
 const parcelRoutes = require("./routes/parcel");
 const agentRoutes = require("./routes/agent");
+const adminRoutes = require("./routes/admin");
 const authMiddleware = require("./middleware/auth");
 
 const app = express();
@@ -43,5 +44,6 @@ app.get("/", authMiddleware, (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/parcels", parcelRoutes);
 app.use("/api/agent", agentRoutes);
+app.use("/api/admin", adminRoutes);
 
 module.exports = { app, server }; // Export the app instance

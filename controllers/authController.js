@@ -13,7 +13,6 @@ const createToken = (user) => {
 const register = async (req, res) => {
   try {
     const { name, phone, password, role } = req.body;
-
     const existing = await User.findOne({ phone });
     if (existing)
       return res
