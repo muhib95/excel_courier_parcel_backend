@@ -37,7 +37,7 @@ io.on("connection", (socket) => {
 // ✅ Make io available in routes
 app.set("io", io);
 // Routes
-app.get("/", authMiddleware, (req, res) => {
+app.get("/", (req, res) => {
   res.send("Server is running");
 });
 
